@@ -1,7 +1,8 @@
 <?php
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LpthKhoaController;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,18 @@ Route::get('/khoas/edit/{makh}',
         [LpthKhoaController::class,'lpthEdit'])->name('lpthkhoa.lpthEdit');
 Route::post('/khoas/edit/',
         [LpthKhoaController::class,'lpthEditSubmit'])->name('lpthkhoa.lpthEditSubmit');
+
+#khoa - insert
+Route::get('/khoas/insert',
+        [LpthKhoaController::class,'lpthInsert'])->name('lpthkhoa.lpthInsert');
+Route::post('/khoas/insert',
+        [LpthKhoaController::class,'lpthInsertSubmit'])->name('lpthkhoa.lpthInsertSubmit');
+
+#khoa - delete
+Route::get('/khoas/delete/{makh}',
+        [LpthKhoaController::class,'lpthDelete'])->name('lpthkhoa.lpthDelete');
+
+#MonHoc
+
+Route::get('/monhocs',
+        [LpthMonHocController::class,'lpthList'])->name('lpthmonhoc.lpthlist');

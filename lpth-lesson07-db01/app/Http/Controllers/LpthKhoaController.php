@@ -37,6 +37,42 @@ class LpthKhoaController extends Controller
         DB::update("UPDATE lpthkhoa SET LPTHTENKH = ? WHERE LPTHMAKHOA=?",[$tenkh,$makh]);
         return redirect('/khoas');
     }
+        //#insert -Get
+        public function lpthInsert()
+        {
+            return view('lpthKhoa.lpthInsert');
 
+        }
     
+        //Insert - post
+        public function lpthInsertSubmit(Request $request)
+        {
+            //Kiem tra du lieu nhap
+            $validate = $request->validate([
+                'LPTHMAKH' => 'required|max:2',
+                'LPTHTENKH'=>  'required|max:50'
+            ],
+            [
+                'LPTHMAKH.required' => 'Vui long nhap ma khoa.',
+                'LPTHMAKH.max' => 'Ma khoa toi da 2 ky tu.',
+                'LPTHTENKH.required' => 'Vui long nhap ten khoa.',
+                'LPTHTENKH.max' => 'Ten khoa toi da 50 ky tu.',
+            ]);
+            // Lay du lieu form
+            $makh = $request->input('LPTHMAKH');
+            $tenkh = $request->input('LPTHTENKH');
+
+            //Ghi du lieu xuong database
+            DB::insert("INSERT INTO lpthkhoa(LPTHMAKHOA,LPTHTENKH) VALUES (?,?)  ",[$makh, $tenkh]);
+            //Chuyen sang trang danh sach 
+            return redirect('/khoas');
+        }
+        //delete
+        public function lpthDelete($makh)
+            {
+                DB::delete("DELETE FROM lpthkhoa WHERE LPTHMAKHOA=?",[$makh]);
+        // chuyen sang trang danh sach
+                return redirect('/khoas');
+            }
+                
 }
