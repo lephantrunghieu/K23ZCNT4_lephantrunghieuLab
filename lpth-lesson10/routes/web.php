@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LpthVattuController;
+use App\Http\Controllers\LpthNhaccController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('lpthvattu', LpthVattuController::class);
+
+Route::resource('lpthnhacc', LpthNhaccController::class);
+

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB; // Import DB facade
+use Faker\Factory as Faker;
 
 class LpthVattuTableSeeder extends Seeder
 {
@@ -25,5 +26,16 @@ class LpthVattuTableSeeder extends Seeder
             'lpthDvTinh' => 'Bộ',
             'lpthPhanTram' => 50,
         ]);
+    $faker = Faker::create();
+    foreach(range(1,50) as $index)
+        {
+            DB::table('lpthVATTU')->insert([
+            'lpthMaVTu'=>$faker->word(4),
+            // 'MaNCC'=>$faker->word(15),
+            'lpthTenVtu'=>$faker->sentence(5),
+            'lpthDvTinh'=>$faker->word(3),
+            'lpthPhanTram'=>$faker->randomFloat('2'),0,100
+            ]);
+        }
     }
 }
