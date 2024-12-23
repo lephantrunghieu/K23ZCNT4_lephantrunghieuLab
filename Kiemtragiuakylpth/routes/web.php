@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LpthSanPhamController;
+use App\Http\Controllers\LPTH_LOAI_SAN_PHAMController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +28,11 @@ Route::get('/lpth-admins',function(){
 
 Route::get('/lpth-admins/lpth-loai-san-pham',[LPTH_LOAI_SAN_PHAMController::class,'lpthList'])->name('lpthadmins');
 Route::get('/lpth-admins/lpth-loai-san-pham/lpth-create',[LPTH_LOAI_SAN_PHAMController::class,'lpthCreate'])->name('lpthadmins.lpthloaisanpham.lpthcreate');
+
+use App\Http\Controllers\SanPhamController;
+
+Route::get('/sanpham', [LpthSanPhamController::class, 'index'])->name('sanpham.index');
+Route::get('/sanpham/create', [LpthSanPhamController::class, 'create'])->name('sanpham.create');
+Route::post('/sanpham', [LpthSanPhamController::class, 'store'])->name('sanpham.store');
+
+Route::resource('lpthloaisanpham', LPTH_LOAI_SAN_PHAMController::class);
