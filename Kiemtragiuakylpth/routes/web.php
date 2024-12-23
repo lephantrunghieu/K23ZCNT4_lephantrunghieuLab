@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+#admins 
+Route::get('/lpth-admins',function(){
+    return view('lpthAdmins.index');
+}
+);
+
+Route::get('/lpth-admins/lpth-loai-san-pham',[LPTH_LOAI_SAN_PHAMController::class,'lpthList'])->name('lpthadmins');
+Route::get('/lpth-admins/lpth-loai-san-pham/lpth-create',[LPTH_LOAI_SAN_PHAMController::class,'lpthCreate'])->name('lpthadmins.lpthloaisanpham.lpthcreate');
