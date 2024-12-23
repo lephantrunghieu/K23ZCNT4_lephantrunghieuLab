@@ -17,4 +17,9 @@ class SanPham extends Model
         'lpthTrangThai'
     ];
     protected $table = 'LPTH_SAN_PHAM';
+
+    public function lpthLoaiSanPham()
+    {
+        return $this->belongsTo(LPTH_LOAI_SAN_PHAM::class, 'lpthMaLoai', 'id');
+    }
 }

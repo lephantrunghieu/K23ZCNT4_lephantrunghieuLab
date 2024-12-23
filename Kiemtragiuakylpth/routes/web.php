@@ -1,38 +1,32 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LpthSanPhamController;
 use App\Http\Controllers\LPTH_LOAI_SAN_PHAMController;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\LPTHQuanTriController;
+use App\Http\Controllers\UserController; // Bổ sung controller cho người dùng
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-#admins 
-Route::get('/lpth-admins',function(){
-    return view('lpthAdmins.index');
-}
-);
+// Trang quản trị
+Route::prefix('lpth-quan-tri')->name('lpth_quan_tri.')->group(function () {
+    // Trang tổng quan
+    Route::get('/trang-tong-quan', [LPTHQuanTriController::class, 'lpthTrangTongQuan'])->name('trang_tong_quan');
 
-Route::get('/lpth-admins/lpth-loai-san-pham',[LPTH_LOAI_SAN_PHAMController::class,'lpthList'])->name('lpthadmins');
-Route::get('/lpth-admins/lpth-loai-san-pham/lpth-create',[LPTH_LOAI_SAN_PHAMController::class,'lpthCreate'])->name('lpthadmins.lpthloaisanpham.lpthcreate');
+    // Quản lý loại sản phẩm
+    Route::get('/loai-san-pham', [LPTHQuanTriController::class, 'lpthDanhSachLoaiSanPham'])->name('loai_san_pham');
 
-use App\Http\Controllers\SanPhamController;
+    // Quản lý người dùng
+    Route::get('/nguoi-dung', [UserController::class, 'index'])->name('nguoi_dung');
+});
 
-Route::get('/sanpham', [LpthSanPhamController::class, 'index'])->name('sanpham.index');
-Route::get('/sanpham/create', [LpthSanPhamController::class, 'create'])->name('sanpham.create');
-Route::post('/sanpham', [LpthSanPhamController::class, 'store'])->name('sanpham.store');
-
+// Loại sản phẩm
 Route::resource('lpthloaisanpham', LPTH_LOAI_SAN_PHAMController::class);
+
+// Sản phẩm
+Route::prefix('sanpham')->name('sanpham.')->group(function () {
+    Route::get('/', [LpthSanPhamController::class, 'index'])->name('index');
+    Route::get('/create', [LpthSanPhamController::class, 'create'])->name('create');
+    Route::post('/', [LpthSanPhamController::class, 'store'])->name('store');
+});
